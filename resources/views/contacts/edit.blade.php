@@ -9,10 +9,10 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-title">
-              <strong>Add New Contact</strong>
+              <strong>Update Contact</strong>
             </div>           
             <div class="card-body">
-              <form action="{{ route('contacts.store' )}}" method="POST">
+              <form>
                 @csrf
                 @include('contacts._form')
               </form>

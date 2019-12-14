@@ -3,7 +3,7 @@
           <div class="form-group row">
             <label for="first_name" class="col-md-3 col-form-label">First Name</label>
             <div class="col-md-9">
-              <input type="text" value="{{ old('first_name') }}" name="first_name" id="first_name" class="form-control @error('first_name') is-invalid @enderror">
+              <input type="text" value="{{ old('first_name', $contact->first_name) }}" name="first_name" id="first_name" class="form-control @error('first_name') is-invalid @enderror">
               @error('first_name')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -15,7 +15,7 @@
           <div class="form-group row">
             <label for="last_name" class="col-md-3 col-form-label">Last Name</label>
             <div class="col-md-9">
-              <input type="text" value="{{ old('last_name') }}" name="last_name" id="last_name" class="form-control @error('last_name') is-invalid @enderror">
+              <input type="text" value="{{ old('last_name', $contact->last_name) }}" name="last_name" id="last_name" class="form-control @error('last_name') is-invalid @enderror">
               @error('last_name')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -27,7 +27,7 @@
           <div class="form-group row">
             <label for="email" class="col-md-3 col-form-label">Email</label>
             <div class="col-md-9">
-              <input type="text" value="{{ old('email') }}" name="email" id="email" class="form-control @error('email') is-invalid @enderror">
+              <input type="text" value="{{ old('email', $contact->email) }}" name="email" id="email" class="form-control @error('email') is-invalid @enderror">
               @error('email')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -39,14 +39,14 @@
           <div class="form-group row">
             <label for="phone" class="col-md-3 col-form-label">Phone</label>
             <div class="col-md-9">
-              <input type="text" value="{{ old('phone') }}" name="phone" id="phone" class="form-control">
+              <input type="text" value="{{ old('phone', $contact->phone) }}" name="phone" id="phone" class="form-control">
             </div>
           </div>
 
           <div class="form-group row">
             <label for="name" class="col-md-3 col-form-label">Address</label>
             <div class="col-md-9">
-              <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror">{{old('address')}}</textarea>
+              <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror">{{old('address', $contact->address)}}</textarea>
               @error('Address')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -59,20 +59,20 @@
             <div class="col-md-9">
               <select name="company_id"  id="company_id" class="form-control @error('company_id') is-invalid @enderror">
                 @foreach ($companies as $id => $name)
-                  <option value="{{ $id }}">{{ $name }}</option>
+                  <option {{ $id === old('company_id', $contact->company_id) ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option>
                 @endforeach
               </select>
               @error('company_id')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
           </div>
           <hr>
           <div class="form-group row mb-0">
             <div class="col-md-9 offset-md-3">
-                <button type="submit" class="btn btn-primary">SAVE</button>
+                <button type="submit" class="btn btn-primary">{{ $contact->exists ? "Update" : "SAVE" }}</button>
                 <a href="{{ route('contacts.index') }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
           </div>
